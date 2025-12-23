@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gajjar Soda Shop | SVNIT Surat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: rise 15s infinite ease-in;
+            z-index: 0;
+        }
+
+        .bubble:nth-child(1) { width: 40px; height: 40px; left: 10%; animation-delay: 0s; }
+        .bubble:nth-child(2) { width: 60px; height: 60px; left: 30%; animation-delay: 2s; }
+        .bubble:nth-child(3) { width: 50px; height: 50px; left: 50%; animation-delay: 4s; }
+        .bubble:nth-child(4) { width: 45px; height: 45px; left: 70%; animation-delay: 1s; }
+        .bubble:nth-child(5) { width: 35px; height: 35px; left: 90%; animation-delay: 3s; }
+        .bubble:nth-child(6) { width: 45px; height: 45px; left: 90%; animation-delay: 6s; }
+
+        @keyframes rise {
+            to {
+                bottom: 110vh;
+                transform: translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .logo-text h1 {
+            color: white;
+            font-size: 28px;
+        }
+
+        .logo-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .hero h2 {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: white;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 20px;
+            flex-wrap: wrap;
+            z-index: 1;
+            position: relative;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-color: transparent;
+            transform: scale(1.1);
+        }
+
+        .menu-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            z-index: 1;
+            position: relative;
+        }
+
+        .menu-section {
+            display: none;
+        }
+
+        .menu-section.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .menu-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #ee5a6f, #f093fb);
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .card-icon {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .card-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #eee;
+        }
+
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #f5576c;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .order-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            z-index: 1;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🥤</div>
+                <div class="logo-text">
+                    <h1>The Gajjar Soda Shop</h1>
+                    <p>📍 Gajjar Bhavan, SVNIT Surat Campus</p>
+                </div>
+            </div>
+            <a href="#contact" class="contact-btn">Order Now</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>🎉 Refreshment Paradise!</h2>
+        <p>✨ Premium Sodas, Mocktails & Energy Drinks</p>
+        <p>💯 Made Fresh | Served Cold | Loved by SVNITians</p>
+    </section>
+
+    <div class="menu-tabs">
+        <button class="tab active" onclick="showMenu('deals')">🔥 Best Deals</button>
+        <button class="tab" onclick="showMenu('classic')">🥤 Classic Shots</button>
+        <button class="tab" onclick="showMenu('mocktails')">🍹 Mocktails</button>
+        <button class="tab" onclick="showMenu('energy')">⚡ Energy Blasts</button>
+    </div>
+
+    <div class="menu-content">
+        <div id="deals" class="menu-section active">
+            <div class="menu-card">
+                <span class="badge">30% OFF</span>
+                <div class="card-icon">🍕🥤</div>
+                <div class="card-title">Pizza + Soda Combo</div>
+                <div class="card-description">Classic Pizza slice + Classic Cola</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹100</span><span class="price">₹70</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">40% OFF</span>
+                <div class="card-icon">🍔🥤</div>
+                <div class="card-title">Burger Blast Deal</div>
+                <div class="card-description">Veg Burger + Masala Soda + Chips</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹120</span><span class="price">₹72</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">BUY 1 GET 1</span>
+                <div class="card-icon">🌮🥤</div>
+                <div class="card-title">Taco Tuesday Special</div>
+                <div class="card-description">2 Tacos + 2 Sodas (Any flavor)</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹160</span><span class="price">₹120</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">35% OFF</span>
+                <div class="card-icon">🌭🥤</div>
+                <div class="card-title">Hot Dog Heaven</div>
+                <div class="card-description">Jumbo Hot Dog + Lemon Soda </div>
+                <div class="card-price">
+                    <div><span class="old-price">₹110</span><span class="price">₹72</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">MEGA DEAL</span>
+                <div class="card-icon">🍟🥤</div>
+                <div class="card-title">Fries & Fizz</div>
+                <div class="card-description">Large Fries + Any 2 Sodas + Dip</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹90</span><span class="price">₹75</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">45% OFF</span>
+                <div class="card-icon">🥪🥤</div>
+                <div class="card-title">Sandwich Supreme</div>
+                <div class="card-description">Club Sandwich + Jeera Soda + Salad</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹130</span><span class="price">₹85</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">FAMILY PACK</span>
+                <div class="card-icon">🍕🥤</div>
+                <div class="card-title">Group Party Pack</div>
+                <div class="card-description">4 Pizza slices + 4 Sodas + Garlic Bread</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹350</span><span class="price">₹250</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">30% OFF</span>
+                <div class="card-icon">🥟🥤</div>
+                <div class="card-title">Samosa Soda Deal</div>
+                <div class="card-description">4 Hot Samosas + Mint Soda + Chutney</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹130</span><span class="price">₹91</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">STUDY FUEL</span>
+                <div class="card-icon">🍪🥤</div>
+                <div class="card-title">Midnight Snacker</div>
+                <div class="card-description">Cookies + Energy Soda + Chocolate Bar</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹100</span><span class="price">₹65</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <span class="badge">WEEKEND SPECIAL</span>
+                <div class="card-icon">🍿🥤</div>
+                <div class="card-title">Movie Night Combo</div>
+                <div class="card-description">Large Popcorn + 2 Flavored Sodas</div>
+                <div class="card-price">
+                    <div><span class="old-price">₹120</span><span class="price">₹99</span></div>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="classic" class="menu-section">
+            <div class="menu-card">
+                <div class="card-icon">🍋</div>
+                <div class="card-title">Classic Lemon Soda</div>
+                <div class="card-description">Fresh lemon with sparkling soda water and mint</div>
+                <div class="card-price">
+                    <span class="price">₹25</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🧂</div>
+                <div class="card-title">Salted Lime Soda</div>
+                <div class="card-description">Tangy lime with rock salt and black salt twist</div>
+                <div class="card-price">
+                    <span class="price">₹25</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🌿</div>
+                <div class="card-title">Jeera Soda Shot</div>
+                <div class="card-description">Cumin spiced refreshing digestive cooler</div>
+                <div class="card-price">
+                    <span class="price">₹30</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍊</div>
+                <div class="card-title">Orange Fizz</div>
+                <div class="card-description">Fresh orange juice with sparkling bubbles</div>
+                <div class="card-price">
+                    <span class="price">₹35</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🥭</div>
+                <div class="card-title">Aam Panna Soda</div>
+                <div class="card-description">Traditional raw mango cooler with fizz</div>
+                <div class="card-price">
+                    <span class="price">₹35</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍇</div>
+                <div class="card-title">Grape Splash</div>
+                <div class="card-description">Sweet grape flavor with carbonated kick</div>
+                <div class="card-price">
+                    <span class="price">₹35</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mocktails" class="menu-section">
+            <div class="menu-card">
+                <div class="card-icon">🍹</div>
+                <div class="card-title">Blue Lagoon</div>
+                <div class="card-description">Blue curacao, lemonade, sprite with cherry</div>
+                <div class="card-price">
+                    <span class="price">₹70</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍓</div>
+                <div class="card-title">Strawberry Mojito</div>
+                <div class="card-description">Fresh strawberry, mint, lime, and soda</div>
+                <div class="card-price">
+                    <span class="price">₹70</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🥥</div>
+                <div class="card-title">Coconut Breeze</div>
+                <div class="card-description">Coconut water, pineapple, and sprite</div>
+                <div class="card-price">
+                    <span class="price">₹75</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍉</div>
+                <div class="card-title">Watermelon Crush</div>
+                <div class="card-description">Fresh watermelon juice with mint and lime</div>
+                <div class="card-price">
+                    <span class="price">₹60</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍑</div>
+                <div class="card-title">Peach Paradise</div>
+                <div class="card-description">Peach pulp, orange juice, and soda</div>
+                <div class="card-price">
+                    <span class="price">₹60</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍍</div>
+                <div class="card-title">Pineapple Punch</div>
+                <div class="card-description">Pineapple, orange, cranberry with fizz</div>
+                <div class="card-price">
+                    <span class="price">₹65</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🍒</div>
+                <div class="card-title">Cherry Bomb</div>
+                <div class="card-description">Cherry syrup, lime, soda with ice cream</div>
+                <div class="card-price">
+                    <span class="price">₹80</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🥝</div>
+                <div class="card-title">Kiwi Cooler</div>
+                <div class="card-description">Fresh kiwi, mint, sprite, and lime</div>
+                <div class="card-price">
+                    <span class="price">₹75</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="energy" class="menu-section">
+            <div class="menu-card">
+                <div class="card-icon">⚡</div>
+                <div class="card-title">BLAST ENERGY</div>
+                <div class="card-description">High caffeine energy drink with electrolytes</div>
+                <div class="card-price">
+                    <span class="price">₹70</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🔋</div>
+                <div class="card-title">RedBull</div>
+                <div class="card-description">Guarana, taurine, B-vitamins blend</div>
+                <div class="card-price">
+                    <span class="price">₹125</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">💪</div>
+                <div class="card-title">Monster</div>
+                <div class="card-description">Protein energy drink for post-workout</div>
+                <div class="card-price">
+                    <span class="price">₹100</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🧠</div>
+                <div class="card-title">Predator</div>
+                <div class="card-description">Ginseng and vitamins for mental focus</div>
+                <div class="card-price">
+                    <span class="price">₹100</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+
+            <div class="menu-card">
+                <div class="card-icon">🌟</div>
+                <div class="card-title">Sting</div>
+                <div class="card-description">Zero sugar energy with natural caffeine</div>
+                <div class="card-price">
+                    <span class="price">₹30</span>
+                    <button class="order-btn">Order</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <div>
+            <h3 style="margin-bottom: 20px; font-size: 24px;">🥤 The Gajjar Soda Shop</h3>
+            <p style="margin-bottom: 10px;">📍 Gajjar Bhavan, SVNIT Surat Campus</p>
+            <p style="margin-bottom: 10px;">📞 Contact: +91 90997 67689</p>
+            <p style="margin-bottom: 20px;">⏰ Open: 8:30 PM - 12:30 AM | All Days</p>
+            <p style="opacity: 0.8;">Made with ❤️ for SVNITians</p>
+        </div>
+    </footer>
+
+    <script>
+        function showMenu(menuId) {
+            var sections = document.querySelectorAll('.menu-section');
+            var tabs = document.querySelectorAll('.tab');
+            
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            tabs.forEach(function(tab) {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(menuId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Scroll to bottom of the page on any order button click
+        document.addEventListener('DOMContentLoaded', function() {
+            var orderButtons = document.querySelectorAll('.order-btn');
+            orderButtons.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    // Scroll smoothly to the bottom (to the contact section)
+                    var contactSection = document.getElementById('contact');
+                    if(contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // Fallback: scroll to bottom of the page
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
